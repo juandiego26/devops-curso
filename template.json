@@ -1,0 +1,22 @@
+{"builders": [
+    {
+      "type": "digitalocean",
+      "image": "coreos-stable",
+      "region": "nyc3",
+      "size": "512mb",
+      "snapshot_name": "platzi-demo-snapshot",
+      "ssh_username": "core"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "git clone https://github.com/juandiego26/devops-curso.git",
+        "cd devops-curso",
+        "docker build -t devops-curso .",
+        "docker run -d -p 3000:3000 devops-curso"
+      ]
+    }
+  ]
+}
