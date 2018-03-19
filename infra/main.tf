@@ -13,6 +13,7 @@ resource "digitalocean_loadbalancer" "curso-devops" {
   healthcheck {
     port     = 3000
     protocol = "http"
+    path     = "/"
   }
 
   droplet_tag = "${digitalocean_tag.curso-devops.name}"
@@ -23,7 +24,7 @@ resource "digitalocean_tag" "curso-devops" {
 }
 
 resource "digitalocean_droplet" "curso-devops" {
-  count    = 3
+  count    = 2
   image    = "32629659"
   name     = "devops-curso-v2"
   region   = "nyc3"
