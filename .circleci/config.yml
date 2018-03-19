@@ -37,7 +37,11 @@ jobs:
     steps:
       - checkout
       - run:
-          command:  sh deployments/qa.sh
+        command: |
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            sh deployments/prod.sh
+          fi
+          sh deployments/qa.sh
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
