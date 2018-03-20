@@ -6,6 +6,6 @@ unzip /tmp/terraform.zip -d ~/bin
 ~/bin/packer build deployments/template.json &&
 export TF_VAR_image_id=$(curl -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN" https://api.digitalocean.com/v2/images?private=true | jq ."images[] | select(.name == \"platzi-demo-$CIRCLE_BUILD_NUM\") | .id")
 echo $TF_VAR_image_id
-cd infra && ~/bin/terraform && cd .. &&
+cd infra && ~/bin/terraform apply && cd .. &&
 git add infra && git commit -m 'Deployed $CIRCLE_BUILD_NUM [skip ci]' &&
 git push origin master
