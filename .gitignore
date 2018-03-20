@@ -1,2 +1,4 @@
 node_modules/
 infra/.terraform/
+deployments/id_circleci
+deployments/id_circleci.pub
