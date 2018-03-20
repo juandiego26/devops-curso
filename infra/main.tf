@@ -25,12 +25,20 @@ resource "digitalocean_tag" "curso-devops" {
 
 resource "digitalocean_droplet" "curso-devops" {
   count    = 2
-  image    = "32629659"
+  image    = "${var.image_id}"
   name     = "devops-curso-v2"
   region   = "nyc3"
   size     = "512mb"
   ssh_keys = [19191407]
   tags     = ["${digitalocean_tag.curso-devops.id}"]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  provisioner "local-exec" {
+    command = "sleep 160 && curl ${self.ipv4_address}:3000"
+  }
 
   user_data = <<EOF
 #cloud-config
